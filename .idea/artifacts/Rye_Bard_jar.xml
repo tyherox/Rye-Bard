@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Rye Bard:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Rye_Bard_jar</output-path>
+    <root id="archive" name="Rye Bard.jar">
+      <element id="module-output" name="Rye Bard" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jhotdraw60b1/jhotdraw.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/forms-1.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

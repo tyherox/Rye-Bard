@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_rye_bard" default="compile.module.rye_bard">
+  <dirname property="module.rye_bard.basedir" file="${ant.file.module_rye_bard}"/>
+  
+  <property name="module.jdk.home.rye_bard" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.rye_bard" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.rye_bard" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.rye_bard" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="rye_bard.output.dir" value="${module.rye_bard.basedir}/out/production/Rye Bard"/>
+  <property name="rye_bard.testoutput.dir" value="${module.rye_bard.basedir}/out/test/Rye Bard"/>
+  
+  <path id="rye_bard.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="rye_bard.module.production.classpath">
+    <path refid="${module.jdk.classpath.rye_bard}"/>
+    <pathelement location="${basedir}/forms-1.2.1.jar"/>
+    <path refid="library.jhotdraw.classpath"/>
+  </path>
+  
+  <path id="rye_bard.runtime.production.module.classpath">
+    <pathelement location="${rye_bard.output.dir}"/>
+    <pathelement location="${basedir}/forms-1.2.1.jar"/>
+    <path refid="library.jhotdraw.classpath"/>
+  </path>
+  
+  <path id="rye_bard.module.classpath">
+    <path refid="${module.jdk.classpath.rye_bard}"/>
+    <pathelement location="${rye_bard.output.dir}"/>
+    <pathelement location="${basedir}/forms-1.2.1.jar"/>
+    <path refid="library.jhotdraw.classpath"/>
+  </path>
+  
+  <path id="rye_bard.runtime.module.classpath">
+    <pathelement location="${rye_bard.testoutput.dir}"/>
+    <pathelement location="${rye_bard.output.dir}"/>
+    <pathelement location="${basedir}/forms-1.2.1.jar"/>
+    <path refid="library.jhotdraw.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.rye_bard">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.rye_bard">
+    <patternset refid="excluded.from.module.rye_bard"/>
+  </patternset>
+  
+  <path id="rye_bard.module.sourcepath">
+    <dirset dir="${module.rye_bard.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.rye_bard" depends="compile.module.rye_bard.production,compile.module.rye_bard.tests" description="Compile module Rye Bard"/>
+  
+  <target name="compile.module.rye_bard.production" depends="register.custom.compilers" description="Compile module Rye Bard; production classes">
+    <mkdir dir="${rye_bard.output.dir}"/>
+    <javac2 destdir="${rye_bard.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.rye_bard}/javac">
+      <compilerarg line="${compiler.args.rye_bard}"/>
+      <bootclasspath refid="rye_bard.module.bootclasspath"/>
+      <classpath refid="rye_bard.module.production.classpath"/>
+      <src refid="rye_bard.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.rye_bard"/>
+    </javac2>
+    
+    <copy todir="${rye_bard.output.dir}">
+      <fileset dir="${module.rye_bard.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.rye_bard.tests" depends="register.custom.compilers,compile.module.rye_bard.production" description="compile module Rye Bard; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.rye_bard" description="cleanup module">
+    <delete dir="${rye_bard.output.dir}"/>
+    <delete dir="${rye_bard.testoutput.dir}"/>
+  </target>
+</project>
